@@ -1,4 +1,4 @@
-import { Settings, Shield, Bell, Database as DatabaseIcon, Palette } from "lucide-react";
+import { Settings } from "lucide-react";
 import SettingsForm from "@/components/SettingsForm";
 import db from "@/lib/db";
 
@@ -27,18 +27,6 @@ export default async function SettingsPage() {
         <div className="w-full lg:w-72 flex flex-col gap-2">
           <button className="flex items-center gap-3 px-5 py-4 bg-vortex/10 text-vortex border border-vortex/20 rounded-2xl font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all">
             <Settings className="w-5 h-5" /> General Settings
-          </button>
-          <button className="flex items-center gap-3 px-5 py-4 text-gray-400 hover:text-white hover:bg-white/[0.04] rounded-2xl font-medium transition-all group">
-            <DatabaseIcon className="w-5 h-5 group-hover:text-vortex transition-colors" /> Database Configuration
-          </button>
-          <button className="flex items-center gap-3 px-5 py-4 text-gray-400 hover:text-white hover:bg-white/[0.04] rounded-2xl font-medium transition-all group">
-            <Shield className="w-5 h-5 group-hover:text-vortex transition-colors" /> Security & Roles
-          </button>
-          <button className="flex items-center gap-3 px-5 py-4 text-gray-400 hover:text-white hover:bg-white/[0.04] rounded-2xl font-medium transition-all group">
-            <Bell className="w-5 h-5 group-hover:text-vortex transition-colors" /> Notifications
-          </button>
-          <button className="flex items-center gap-3 px-5 py-4 text-gray-400 hover:text-white hover:bg-white/[0.04] rounded-2xl font-medium transition-all group">
-            <Palette className="w-5 h-5 group-hover:text-vortex transition-colors" /> Appearance
           </button>
         </div>
 
