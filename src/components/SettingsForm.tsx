@@ -67,31 +67,35 @@ export default function SettingsForm({ initialPlatformName, initialSupportEmail,
         <div className="w-full h-px bg-white/5 my-4"></div>
 
         {/* Maintenance Mode Toggle (Independent) */}
-        <div className="flex items-center justify-between max-w-xl">
+        <div className="flex items-start justify-between max-w-xl">
           <div>
             <h3 className="text-white font-semibold mb-1">Maintenance Mode</h3>
             <p className="text-sm text-gray-400">Temporarily disable the main streaming app for updates.</p>
           </div>
-          <MaintenanceToggle />
+          <div className="mt-0.5">
+            <MaintenanceToggle />
+          </div>
         </div>
 
         {/* Public Registration Toggle */}
-        <div className="flex items-center justify-between max-w-xl">
+        <div className="flex items-start justify-between max-w-xl">
           <div>
             <h3 className="text-white font-semibold mb-1">Allow Public Registration</h3>
             <p className="text-sm text-gray-400">Enable new users to sign up without an invite link.</p>
           </div>
-          <button 
-            onClick={() => {
-              const newValue = !publicRegistration;
-              setPublicRegistration(newValue);
-              handleToggleSave('public_registration', newValue ? 'true' : 'false');
-            }}
-            disabled={isPending}
-            className={`w-14 h-7 rounded-full relative transition-colors focus:outline-none ${publicRegistration ? 'bg-vortex shadow-[0_0_10px_rgba(112,71,235,0.4)]' : 'bg-white/10'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            <div className={`w-5 h-5 rounded-full absolute top-1 transition-transform ${publicRegistration ? 'bg-white translate-x-8' : 'bg-gray-400 translate-x-1'}`}></div>
-          </button>
+          <div className="mt-0.5">
+            <button 
+              onClick={() => {
+                const newValue = !publicRegistration;
+                setPublicRegistration(newValue);
+                handleToggleSave('public_registration', newValue ? 'true' : 'false');
+              }}
+              disabled={isPending}
+              className={`w-14 h-7 rounded-full relative transition-colors focus:outline-none ${publicRegistration ? 'bg-vortex shadow-[0_0_10px_rgba(112,71,235,0.4)]' : 'bg-white/10'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <div className={`w-5 h-5 rounded-full absolute top-1 transition-transform ${publicRegistration ? 'bg-white translate-x-8' : 'bg-gray-400 translate-x-1'}`}></div>
+            </button>
+          </div>
         </div>
 
         <div className="w-full h-px bg-white/5 my-4"></div>
