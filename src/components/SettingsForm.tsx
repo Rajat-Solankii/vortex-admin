@@ -19,6 +19,12 @@ export default function SettingsForm({ initialPlatformName, initialSupportEmail,
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
 
+  const handleToggleSave = async (key: string, value: string) => {
+    startTransition(async () => {
+      await saveSettings([{ key, value }]);
+    });
+  };
+
   const handleSave = () => {
     setSaved(false);
     startTransition(async () => {
@@ -76,8 +82,13 @@ export default function SettingsForm({ initialPlatformName, initialSupportEmail,
             <p className="text-sm text-gray-400">Enable new users to sign up without an invite link.</p>
           </div>
           <button 
-            onClick={() => setPublicRegistration(!publicRegistration)}
-            className={`w-14 h-7 rounded-full relative transition-colors focus:outline-none ${publicRegistration ? 'bg-vortex shadow-[0_0_10px_rgba(112,71,235,0.4)]' : 'bg-white/10'}`}
+            onClick={() => {
+              const newValue = !publicRegistration;
+              setPublicRegistration(newValue);
+              handleToggleSave('public_registration', newValue ? 'true' : 'false');
+            }}
+            disabled={isPending}
+            className={`w-14 h-7 rounded-full relative transition-colors focus:outline-none ${publicRegistration ? 'bg-vortex shadow-[0_0_10px_rgba(112,71,235,0.4)]' : 'bg-white/10'} ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <div className={`w-5 h-5 rounded-full absolute top-1 transition-transform ${publicRegistration ? 'bg-white translate-x-8' : 'bg-gray-400 translate-x-1'}`}></div>
           </button>
