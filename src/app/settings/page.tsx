@@ -2,6 +2,7 @@ import { Settings, Shield, Bell, Database as DatabaseIcon, Palette } from "lucid
 import SettingsForm from "@/components/SettingsForm";
 import db from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
 export default async function SettingsPage() {
   const getSetting = (key: string, defaultValue: string) => {
     const setting = db.prepare('SELECT value FROM settings WHERE key = ?').get(key) as { value: string } | undefined;
