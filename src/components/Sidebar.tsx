@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Settings, LogOut, ShieldAlert, Database } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutDashboard, Users, Settings, LogOut, ShieldAlert, Database, ArrowLeft } from "lucide-react";
+import { logoutAdmin } from "@/app/actions";
 
 const navItems = [
   { name: "Overview", href: "/", icon: LayoutDashboard },
@@ -13,6 +14,12 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logoutAdmin();
+    router.push('/login');
+  };
 
   return (
     <aside className="w-64 h-screen fixed left-0 top-0 flex flex-col bg-[#07090e] border-r border-white/5 z-20 transition-all shadow-[10px_0_30px_rgba(0,0,0,0.5)]">
@@ -46,11 +53,15 @@ export default function Sidebar() {
         })}
       </div>
 
-      <div className="p-4 border-t border-white/5 bg-black/20">
-        <a href="http://localhost:3000" className="flex items-center gap-3 px-4 py-3.5 rounded-xl w-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group">
-          <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+      <div className="p-4 border-t border-white/5 bg-black/20 flex flex-col gap-2">
+        <a href="http://localhost:3000" className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 group">
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-semibold text-sm tracking-wide">Return to App</span>
         </a>
+        <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group">
+          <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          <span className="font-semibold text-sm tracking-wide">Sign Out</span>
+        </button>
       </div>
     </aside>
   );

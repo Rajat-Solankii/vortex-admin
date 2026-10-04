@@ -2,6 +2,7 @@
 
 import db from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 export async function deleteUser(id: number) {
   try {
@@ -36,4 +37,25 @@ export async function saveSettings(settings: { key: string; value: string }[]) {
     console.error("Failed to save settings:", error);
     return { success: false, error: "Failed to save settings" };
   }
+}
+
+export async function loginAdmin(password: string) {
+  const validPassword = process.env.ADMIN_PASSWORD || 'admin';
+  if (password === validPassword) {
+    const cookieStore = await cookies();
+    cookieStore.set('admin_token', 'authenticated', { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24 * 7 // 1 week
+    });
+    return { success: true };
+  }
+  return { success: false, error: 'Invalid password' };
+}
+
+export async function logoutAdmin() {
+  const cookieStore = await cookies();
+  cookieStore.delete('admin_token');
+  revalidatePath('/');
+  return { success: true };
 }
