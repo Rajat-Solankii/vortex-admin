@@ -1,6 +1,8 @@
 import Database from 'better-sqlite3';
+import path from 'path';
 
-const dbPath = 'D:/Desktop/Projects/Vortex/vortex.db';
+// Allow overriding via environment variable for EC2, otherwise default to relative path assuming side-by-side deployment
+const dbPath = process.env.DB_PATH || path.resolve(process.cwd(), '../Vortex/vortex.db');
 const db = new Database(dbPath); // Removed readonly to allow table creation/management
 
 // Ensure the users table exists as requested
