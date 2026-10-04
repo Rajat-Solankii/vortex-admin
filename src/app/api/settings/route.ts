@@ -17,7 +17,8 @@ export async function PATCH(request: Request) {
     const body = await request.json();
     const { key, value } = body;
 
-    if (key !== 'maintenance_mode') {
+    const allowedKeys = ['maintenance_mode', 'public_registration', 'platform_name', 'support_email'];
+    if (!allowedKeys.includes(key)) {
       return NextResponse.json({ error: "Invalid key" }, { status: 400 });
     }
 
