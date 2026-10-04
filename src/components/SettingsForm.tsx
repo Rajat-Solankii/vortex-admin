@@ -100,34 +100,32 @@ export default function SettingsForm({ initialPlatformName, initialSupportEmail,
 
         <div className="w-full h-px bg-white/5 my-4"></div>
 
-        {/* Danger Zone */}
+        {/* Danger Zone & Form Actions */}
         <div className="flex flex-col gap-4 border border-red-500/20 bg-red-500/5 rounded-2xl p-6 max-w-xl">
           <h3 className="text-red-400 font-bold flex items-center gap-2">
-            <Key className="w-5 h-5" /> Danger Zone
+            <Key className="w-5 h-5" /> Danger Zone & Settings
           </h3>
-          <p className="text-sm text-gray-400">Actions here can result in permanent data loss. Proceed with caution.</p>
-          <button className="bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 px-5 py-2.5 rounded-xl font-medium transition-all w-max mt-2">
-            Flush Cache & Temporary Data
-          </button>
+          <p className="text-sm text-gray-400">Actions here can result in permanent data loss, or save your new settings.</p>
+          <div className="flex items-center gap-4 mt-2">
+            <button className="bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 px-5 py-2.5 rounded-xl font-medium transition-all">
+              Flush Cache & Temporary Data
+            </button>
+            <button 
+              onClick={handleSave}
+              disabled={isPending}
+              className={`px-5 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 ${
+                saved 
+                  ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                  : 'bg-gradient-to-r from-vortex to-vortex-dark hover:from-vortex-light hover:to-vortex text-white shadow-[0_0_20px_rgba(112,71,235,0.4)] hover:shadow-[0_0_30px_rgba(112,71,235,0.6)]'
+              } ${isPending ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
+            >
+              <Save className="w-5 h-5" /> 
+              {isPending ? 'Saving...' : saved ? 'Saved Successfully!' : 'Save All Changes'}
+            </button>
+          </div>
         </div>
-
-        <div className="w-full h-px bg-white/5 my-4"></div>
 
         {/* Form Actions */}
-        <div className="flex justify-end max-w-xl">
-          <button 
-            onClick={handleSave}
-            disabled={isPending}
-            className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
-              saved 
-                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                : 'bg-gradient-to-r from-vortex to-vortex-dark hover:from-vortex-light hover:to-vortex text-white shadow-[0_0_20px_rgba(112,71,235,0.4)] hover:shadow-[0_0_30px_rgba(112,71,235,0.6)]'
-            } ${isPending ? 'opacity-50 cursor-not-allowed' : 'hover:-translate-y-0.5'}`}
-          >
-            <Save className="w-5 h-5" /> 
-            {isPending ? 'Saving...' : saved ? 'Saved Successfully!' : 'Save All Changes'}
-          </button>
-        </div>
       </div>
     </>
   );
